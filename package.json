@@ -1,0 +1,22 @@
+{
+  "name": "ake-sdk",
+  "version": "1.0.0",
+  "description": "A SDK for using the Ake-Api",
+  "main": "./build/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wshchocolatine/ake-sdk.git"
+  },
+  "keywords": [
+    "ake"
+  ],
+  "author": "wshchocolatine",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wshchocolatine/ake-sdk/issues"
+  },
+  "homepage": "https://github.com/wshchocolatine/ake-sdk#readme"
+}
