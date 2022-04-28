@@ -1,5 +1,19 @@
 import got from "got"
 import { version as packageVersion } from "../package.json"
+import {
+    register, 
+    RegisterParameters, 
+    RegisterResponse, 
+    login, 
+    LoginParameters, 
+    LoginResponse, 
+    logout, 
+    LogoutParameters, 
+    LogoutResponse, 
+    socketToken, 
+    SocketTokenParameters, 
+    SocketTokenResponse
+} from "./api-endpoints"
 // const axios = require('axios').default
 
 
@@ -31,9 +45,11 @@ export class Client {
      * Sends a request 
      * 
      * @param path 
-     * @param method
-     * @param params
-     * @param body
+     * @param method 
+     * @param {boolean} auth - Does the request needs auth ?
+     * @param {string} [token] - Token if the request needs authentication by token
+     * @param {object} [params] - Optionnals params of the request
+     * @param {object} [body] - Optionnal body of the request
      */
 
     public async request({
@@ -89,8 +105,82 @@ export class Client {
 
             return JSON.parse(responseBody)
         } catch(e) {
-            throw this.buildRequestError(e.response.statusCode, e.response.body) 
+            return JSON.parse(e.response.body)
         }    
+    }
+
+
+    /**
+     * Api endpoints (auth, conversation, message, user)
+     */
+
+    /**
+     * Auth endpoints
+     */
+
+    public readonly auth = {
+        /**
+         * Register to Ake 
+         * 
+         * @param username
+         * @param email
+         * @param password 
+         * @param description
+         */
+
+        register: (
+            args: RegisterParameters
+        ): Promise<RegisterResponse> =>  {
+            return this.request({
+                path: register.path, 
+                method: register.method, 
+                auth: register.auth, 
+                params: this.#authGuard === 'token'
+                    ? { token: true }
+                    : undefined, 
+                body: args
+            })
+        },
+
+
+        /**
+         * Login to Ake 
+         * 
+         * @param email
+         * @param password
+         */
+
+        login: (
+            args: LoginParameters
+        ): Promise<LoginResponse> => {
+            return this.request({
+                path: login.path, 
+                method: login.method, 
+                auth: login.auth, 
+                params: this.#authGuard === 'token'
+                    ? { token: true }
+                    : undefined, 
+                body: args
+            })
+        },
+
+
+        /**
+         * Logout to Ake 
+         * 
+         * @param token
+         */
+
+        logout: (
+            args: LogoutParameters
+        ): Promise<LogoutResponse> => {
+            return this.request({
+                path: logout.path, 
+                method: logout.method, 
+                auth: logout.auth, 
+                token: args.token
+            })
+        }
     }
 
 
