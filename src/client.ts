@@ -110,6 +110,14 @@ export class Client {
                     message: 'ECONNREFUSED'
                 }
             }
+
+            if (e.response.statusCode === 404) {
+                return {
+                    status: 'Error', 
+                    statusCode: 404,
+                    message: "This route doesn't exists on this Ake server"
+                }
+            }
             return JSON.parse(e.response.body)
         }    
     }
@@ -304,6 +312,7 @@ export class Client {
                 convId: args.convId, 
                 offset: args.offset
             }
+            console.log(params)
 
             return this.request({
                 path: getMessage.path, 

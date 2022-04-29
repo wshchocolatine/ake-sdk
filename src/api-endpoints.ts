@@ -128,7 +128,7 @@ export type LogoutParameters = {
 
 export type LogoutResponse = {
     status:
-        | 'Created'
+        | 'Ok'
         | 'Unauthorized'
         | 'Internal Server Error', 
     errors?: BasicError, 
@@ -282,12 +282,12 @@ export type SendMessageResponse = {
 
 export const getMessage: Endpoint = {
     path: '/message/get', 
-    method: 'POST', 
+    method: 'GET', 
     auth: true
 }
 
 export type GetMessageParameters = {
-    convId: string, 
+    convId: Id, 
     offset: number, 
     token?: string
 }

@@ -1,5 +1,5 @@
 import { assert } from '@japa/assert'
-import { apiClient } from '@japa/api-client'
+import { runFailedTests } from '@japa/run-failed-tests'
 import { specReporter } from '@japa/spec-reporter'
 import { processCliArgs, configure, run } from '@japa/runner'
 
@@ -20,7 +20,7 @@ configure({
   ...processCliArgs(process.argv.slice(2)),
   ...{
     files: ['build/tests/**/*.spec.js'],
-    plugins: [assert(), apiClient('http://localhost:4444')],
+    plugins: [assert()],
     reporters: [specReporter()],
     importer: (filePath) => import(filePath),
   },
