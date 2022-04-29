@@ -6,7 +6,10 @@ import {
     socketToken, SocketTokenParameters, SocketTokenResponse, 
     newConversation, NewConversationParameters, NewConversationResponse, 
     getConversation, GetConversationParameters, GetConversationResponse, 
-    searchConversation, SearchConversationParameters, SearchConversationResponse
+    searchConversation, SearchConversationParameters, SearchConversationResponse, 
+    sendMessage, SendMessageParameters, SendMessageResponse, 
+    getMessage, GetMessageParameters, GetMessageResponse, 
+    readMessage, ReadMessageParameters, ReadMessageResponse
 } from "./api-endpoints.js"
 // const axios = require('axios').default
 
@@ -256,6 +259,77 @@ export class Client {
                 path: searchConversation.path, 
                 method: searchConversation.method, 
                 auth: searchConversation.auth, 
+                params, 
+                token: args.token
+            })
+        }
+    }
+
+
+    /**
+     * Message endpoints
+     */
+
+    public readonly message = {
+        /**
+         * Send a message
+         */
+
+        send: (
+            args: SendMessageParameters
+        ): Promise<SendMessageResponse> => {
+            const body = {
+                convId: args.convId, 
+                content: args.content
+            }
+
+            return this.request({
+                path: sendMessage.path, 
+                method: sendMessage.method, 
+                auth: sendMessage.auth, 
+                body, 
+                token: args.token
+            })
+        }, 
+
+
+        /**
+         * Get message of a conv
+         */
+
+        get: (
+            args: GetMessageParameters
+        ): Promise<GetMessageResponse> => {
+            const params = {
+                convId: args.convId, 
+                offset: args.offset
+            }
+
+            return this.request({
+                path: getMessage.path, 
+                method: getMessage.method, 
+                auth: getMessage.auth, 
+                params, 
+                token: args.token
+            })
+        }, 
+
+
+        /**
+         * Mark a message as read
+         */
+
+        read: (
+            args: ReadMessageParameters
+        ): Promise<ReadMessageResponse> => {
+            const params = {
+                msgId: args.msgId
+            }
+
+            return this.request({
+                path: readMessage.path, 
+                method: readMessage.method, 
+                auth: readMessage.auth, 
                 params, 
                 token: args.token
             })

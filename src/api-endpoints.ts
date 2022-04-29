@@ -29,6 +29,15 @@ type ConversationItem = {
     }>
 }
 
+type MessageItem = {
+    id: Id, 
+    author: Id, 
+    conversation_id: Id, 
+    content: string, 
+    read: boolean, 
+    created_at: string
+}
+
 
 
 /**
@@ -233,5 +242,87 @@ export type SearchConversationResponse = {
         | 'Unauthorized'
         | 'Internal Server Error', 
     data?: Array<ConversationItem>, 
+    errors?: BasicError
+}
+
+
+/**
+ * Message endpoints
+ */
+
+/**
+ * Send a message
+ */
+
+export const sendMessage: Endpoint = {
+    path: '/message/send', 
+    method: 'POST', 
+    auth: true
+}
+
+export type SendMessageParameters = {
+    convId: number,
+    content: string, 
+    token?: string
+}
+
+export type SendMessageResponse = {
+    status: 
+        | 'Created'
+        | 'Bad Request'
+        | 'Unauthorized'
+        | 'Internal Server Error', 
+    errors?: BasicError
+}
+
+
+/**
+ * Get messages
+ */
+
+export const getMessage: Endpoint = {
+    path: '/message/get', 
+    method: 'POST', 
+    auth: true
+}
+
+export type GetMessageParameters = {
+    convId: string, 
+    offset: number, 
+    token?: string
+}
+
+export type GetMessageResponse = {
+    status: 
+        | 'Ok'
+        | 'Bad Request'
+        | 'Unauthorized'
+        | 'Internal Server Error', 
+    data?: Array<MessageItem>, 
+    errors?: BasicError
+}
+
+
+/**
+ * Read a message
+ */
+
+export const readMessage: Endpoint = {
+    path: '/message/read', 
+    method: 'GET', 
+    auth: true
+}
+
+export type ReadMessageParameters = {
+    msgId: Id, 
+    token?: string
+}
+
+export type ReadMessageResponse = {
+    status:
+        | 'Created'
+        | 'Bad Request'
+        | 'Unauthorized'
+        | 'Internal Server Error', 
     errors?: BasicError
 }
