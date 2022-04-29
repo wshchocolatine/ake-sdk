@@ -4,6 +4,33 @@ type Endpoint = {
     auth: boolean
 }
 
+type Id = string | number
+
+type BasicError = {
+    message: string
+}
+
+type ValidationError = {
+    message: string, 
+    rule: string, 
+    field: string
+}
+
+type ConversationItem = {
+    id: Id, 
+    last_msg_content: string, 
+    last_msg_author: Id, 
+    last_msg_read: boolean, 
+    created_at: string, 
+    updated_at: string, 
+    participants: Array<{
+        user_id: Id, 
+        username: string
+    }>
+}
+
+
+
 /**
  * Auth endpoints
  */
@@ -32,11 +59,7 @@ export type RegisterResponse = {
         | 'Conflict'
         | 'Precondition Failed'
         | 'Internal Server Error', 
-    errors?: {
-        message: string, 
-        rule?: string, 
-        field?: string
-    }, 
+    errors?: BasicError | ValidationError, 
     data?: {
         token: {
             token: string, 
@@ -69,11 +92,7 @@ export type LoginResponse = {
         | 'Unauthorized'
         | 'Conflict'
         | 'Internal Server Error', 
-    errors?: {
-        message: string, 
-        rule?: string, 
-        field?: string
-    }, 
+    errors?: BasicError | ValidationError, 
     data?: {
         token: {
             type: 'bearer', 
@@ -103,9 +122,7 @@ export type LogoutResponse = {
         | 'Created'
         | 'Unauthorized'
         | 'Internal Server Error', 
-    errors?: {
-        message: string, 
-    }, 
+    errors?: BasicError, 
 }
 
 
@@ -132,7 +149,89 @@ export type SocketTokenResponse = {
         token: string, 
         expiresAt: string
     }, 
-    errors?: {
-        message: string
-    }
+    errors?: BasicError
+}
+
+
+
+/**
+ * Conversation endpoints
+ */
+
+/**
+ * New conversation
+ */
+
+export const newConversation: Endpoint = {
+    path: '/conversations/new', 
+    method: 'POST', 
+    auth: true
+}
+
+export type NewConversationParameters = {
+    participantsWithoutCreator: Array<string>, 
+    content: string,
+    token?: string
+}
+
+export type NewConversationResponse = {
+    status: 
+        | 'Created'
+        | 'Bad Request'
+        | 'Unauthorized'
+        | 'Internal Server Error', 
+    errors?: BasicError | ValidationError
+}
+
+
+/**
+ * Get conversation
+ */
+
+ export const getConversation: Endpoint = {
+    method: 'GET', 
+    path: '/conversations/get', 
+    auth: true
+}
+
+export type GetConversationParameters = {
+    offset: number,
+    token?: string
+}
+
+export type GetConversationResponse = {
+    status: 
+        | 'Ok'
+        | 'Bad Request'
+        | 'Unauthorized'
+        | 'Internal Server Error', 
+    data?: Array<ConversationItem>, 
+    errors?: BasicError
+}
+
+
+/**
+ * Search conversation
+ */
+
+export const searchConversation: Endpoint = {
+    path: '/conversations/search', 
+    method: 'GET', 
+    auth: true
+}
+
+export type SearchConversationParameters = {
+    offset: number, 
+    query: string, 
+    token?: string
+}
+
+export type SearchConversationResponse = {
+    status: 
+        | 'Created'
+        | 'Bad Request'
+        | 'Unauthorized'
+        | 'Internal Server Error', 
+    data?: Array<ConversationItem>, 
+    errors?: BasicError
 }

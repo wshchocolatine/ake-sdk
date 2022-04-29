@@ -2,11 +2,18 @@ import { test } from '@japa/runner'
 import { faker } from '@faker-js/faker'
 import { Client } from '../src/client.js'
 
-test.group('Testing auth endpoints', () => {
+test.group('Testing all endpoints', () => {
     const ake = new Client({
         authGuard: 'token', 
         url: 'http://localhost:3333'
     })
+
+    let token;
+
+    
+    /**
+     * Auth endpoints
+     */
 
     test('/register', async() => {
         const response = await ake.auth.register({
@@ -26,5 +33,8 @@ test.group('Testing auth endpoints', () => {
         })
 
         console.log(response)
+
+        //Saving token for other requests
+        token = response.data.token.token
     })
 })

@@ -1,17 +1,12 @@
 import got from "got"
 import {
-    register, 
-    RegisterParameters, 
-    RegisterResponse, 
-    login, 
-    LoginParameters, 
-    LoginResponse, 
-    logout, 
-    LogoutParameters, 
-    LogoutResponse, 
-    socketToken, 
-    SocketTokenParameters, 
-    SocketTokenResponse
+    register, RegisterParameters, RegisterResponse, 
+    login, LoginParameters, LoginResponse, 
+    logout, LogoutParameters, LogoutResponse, 
+    socketToken, SocketTokenParameters, SocketTokenResponse, 
+    newConversation, NewConversationParameters, NewConversationResponse, 
+    getConversation, GetConversationParameters, GetConversationResponse, 
+    searchConversation, SearchConversationParameters, SearchConversationResponse
 } from "./api-endpoints.js"
 // const axios = require('axios').default
 
@@ -128,7 +123,6 @@ export class Client {
     public readonly auth = {
         /**
          * Register to Ake 
-         * 
          */
 
         register: (
@@ -148,7 +142,6 @@ export class Client {
 
         /**
          * Login to Ake 
-         * 
          */
 
         login: (
@@ -168,7 +161,6 @@ export class Client {
 
         /**
          * Logout to Ake 
-         * 
          */
 
         logout: (
@@ -185,7 +177,6 @@ export class Client {
 
         /**
          * Socket token
-         * 
          */
 
         socketToken: (
@@ -195,6 +186,77 @@ export class Client {
                 path: socketToken.path, 
                 method: socketToken.method, 
                 auth: socketToken.auth, 
+                token: args.token
+            })
+        }
+    }
+
+
+    /**
+     * Conversation endpoints
+     */
+
+    public readonly conversation = {
+        /**
+         * Create a new conversation
+         */
+
+        new: (
+            args: NewConversationParameters
+        ): Promise<NewConversationResponse> => {
+            const body = {
+                participantsWithoutCreator: args.participantsWithoutCreator, 
+                content: args.content
+            }
+
+            return this.request({
+                path: newConversation.path, 
+                method: newConversation.method, 
+                auth: newConversation.auth, 
+                body, 
+                token: args.token
+            })
+        },
+
+
+        /**
+         * Get last 12 conversations
+         */
+
+        get: (
+            args: GetConversationParameters
+        ): Promise<GetConversationResponse> => {
+            const params = {
+                offset: args.offset
+            }
+
+            return this.request({
+                path: getConversation.path, 
+                method: getConversation.method, 
+                auth: getConversation.auth, 
+                params, 
+                token: args.token
+            })
+        },
+
+
+        /**
+         * Search conversation by :query?
+         */
+
+        search: (
+            args: SearchConversationParameters
+        ): Promise<SearchConversationResponse> => {
+            const params = {
+                offset: args.offset, 
+                query: args.query
+            }
+
+            return this.request({
+                path: searchConversation.path, 
+                method: searchConversation.method, 
+                auth: searchConversation.auth, 
+                params, 
                 token: args.token
             })
         }
