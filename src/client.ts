@@ -1,5 +1,4 @@
 import got from "got"
-import { version as packageVersion } from "../package.json"
 import {
     register, 
     RegisterParameters, 
@@ -13,9 +12,14 @@ import {
     socketToken, 
     SocketTokenParameters, 
     SocketTokenResponse
-} from "./api-endpoints"
+} from "./api-endpoints.js"
 // const axios = require('axios').default
 
+
+type ClientParameters = {
+    authGuard: 'session' | 'token', 
+    url: string
+}
 
 export type RequestParameters = {
     path: string, 
@@ -31,13 +35,10 @@ export class Client {
     #url: string
     #userAgent: string
 
-    constructor(
-        authGuard: 'session' | 'token', 
-        url: string
-    ) {
-        this.#authGuard = authGuard
-        this.#url = url
-        this.#userAgent = `ake-sdk/${packageVersion}`
+    constructor(args: ClientParameters) {
+        this.#authGuard = args.authGuard
+        this.#url = args.url
+        this.#userAgent = `ake-sdk@1.0.0}`
     }
 
 
@@ -105,6 +106,12 @@ export class Client {
 
             return JSON.parse(responseBody)
         } catch(e) {
+            if (e.code === 'ECONNREFUSED') {
+                return {
+                    status: 'Error', 
+                    message: 'ECONNREFUSED'
+                }
+            }
             return JSON.parse(e.response.body)
         }    
     }
@@ -122,10 +129,6 @@ export class Client {
         /**
          * Register to Ake 
          * 
-         * @param username
-         * @param email
-         * @param password 
-         * @param description
          */
 
         register: (
@@ -146,8 +149,6 @@ export class Client {
         /**
          * Login to Ake 
          * 
-         * @param email
-         * @param password
          */
 
         login: (
@@ -168,7 +169,6 @@ export class Client {
         /**
          * Logout to Ake 
          * 
-         * @param token
          */
 
         logout: (
@@ -178,6 +178,23 @@ export class Client {
                 path: logout.path, 
                 method: logout.method, 
                 auth: logout.auth, 
+                token: args.token
+            })
+        },
+
+
+        /**
+         * Socket token
+         * 
+         */
+
+        socketToken: (
+            args: SocketTokenParameters
+        ): Promise<SocketTokenResponse> => {
+            return this.request({
+                path: socketToken.path, 
+                method: socketToken.method, 
+                auth: socketToken.auth, 
                 token: args.token
             })
         }
