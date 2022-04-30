@@ -96,7 +96,6 @@ export type LoginResponse = {
     | "Created"
     | "Bad Request"
     | "Unauthorized"
-    | "Conflict"
     | "Internal Server Error";
   errors?: BasicError | ValidationError;
   data?: {
@@ -179,8 +178,9 @@ export type NewConversationParameters = {
 export type NewConversationResponse = {
   status: 
     | "Created" 
-    | "Bad Request" 
-    | "Unauthorized" 
+    | "Bad Request"
+    | "Unauthorized"  
+    | "Conflict"
     | "Internal Server Error";
   errors?: BasicError | ValidationError;
 };
@@ -314,3 +314,12 @@ export type ReadMessageResponse = {
     | "Internal Server Error";
   errors?: BasicError;
 };
+
+
+/**
+ * User endpoints
+ */
+
+/**
+ * 
+ */

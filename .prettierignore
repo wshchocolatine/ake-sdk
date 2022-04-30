@@ -1,3 +1,4 @@
 build
 node_modules
 assets
+src/api-endpoints.ts
