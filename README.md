@@ -6,7 +6,7 @@ This is the SDK of Ake, an open source messenger.
 
 <p align="center"><img src="./assets/logo.png" width="250"></p>
 
-For more explanations about this projet, check [here](https://github.com/wshchocolatine/ake-api#readme/)
+For more explanations about Ake, check [here](https://github.com/wshchocolatine/ake-api#readme/)
 
 ## Goals of the SDK
 
