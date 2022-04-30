@@ -1,15 +1,12 @@
 {
-    "compilerOptions": {
-        "outDir": "build", 
-        "target": "ESNext", 
-        "module": "ESNext", 
-        "moduleResolution": "node", 
-        "resolveJsonModule": true, 
-        "allowSyntheticDefaultImports": true
-    }, 
-    "include": ["src/**/*", "tests/**/*", "bin"], 
-    "exclude": [
-        "node_modules"
-    ], 
-    
+  "compilerOptions": {
+    "outDir": "build",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src/**/*", "tests/**/*", "bin"],
+  "exclude": ["node_modules"]
 }

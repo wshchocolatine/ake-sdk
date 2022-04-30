@@ -1,7 +1,6 @@
-import { assert } from '@japa/assert'
-import { runFailedTests } from '@japa/run-failed-tests'
-import { specReporter } from '@japa/spec-reporter'
-import { processCliArgs, configure, run } from '@japa/runner'
+import { assert } from "@japa/assert";
+import { specReporter } from "@japa/spec-reporter";
+import { processCliArgs, configure, run } from "@japa/runner";
 
 /*
 |--------------------------------------------------------------------------
@@ -19,12 +18,12 @@ import { processCliArgs, configure, run } from '@japa/runner'
 configure({
   ...processCliArgs(process.argv.slice(2)),
   ...{
-    files: ['build/tests/**/*.spec.js'],
+    files: ["build/tests/**/*.spec.js"],
     plugins: [assert()],
     reporters: [specReporter()],
     importer: (filePath) => import(filePath),
   },
-})
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +33,4 @@ configure({
 | The following "run" method is required to execute all the tests.
 |
 */
-run()
+run();
