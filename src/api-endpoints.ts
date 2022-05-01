@@ -38,6 +38,18 @@ type MessageItem = {
   created_at: string;
 };
 
+type UserSerializedItem = {
+  id: Id; 
+  username: string;
+  tag: Id;
+  description: string;
+  email?: string; 
+}
+
+type username = string 
+type tag = number 
+type usernameAndTag = `${username}#${tag}`
+
 /**
  * Auth endpoints
  */
@@ -170,7 +182,7 @@ export const newConversation: Endpoint = {
 };
 
 export type NewConversationParameters = {
-  participantsWithoutCreator: Array<string>;
+  participantsWithoutCreator: Array<usernameAndTag>;
   content: string;
   token?: string;
 };
@@ -262,7 +274,7 @@ export type SendMessageResponse = {
     | "Bad Request" 
     | "Unauthorized" 
     | "Internal Server Error";
-  errors?: BasicError;
+  errors?: BasicError | ValidationError;
 };
 
 /**
@@ -321,5 +333,73 @@ export type ReadMessageResponse = {
  */
 
 /**
- * 
+ * User account
  */
+
+export const accountInformations: Endpoint = {
+  path: '/user/account/informations',
+  method: 'GET',
+  auth: true
+};
+
+export type AccountInformationsParameters = {
+  userId?: number;
+  token?: string;
+};
+
+export type AccountInformationsResponse = {
+  status: 
+    | "Ok"
+    | "Unauthorized"
+    | "Internal Server Error"; 
+  data?: UserSerializedItem;
+  errors?: BasicError;
+};
+
+/**
+ * Change Description
+ */
+
+export const changeDescription: Endpoint = {
+  path: "/user/description", 
+  method: "POST", 
+  auth: true
+}; 
+
+export type ChangeDescriptionParameters = {
+  description: string;
+  token?: string;
+};
+
+export type ChangeDescriptionResponse = {
+  status: 
+    | "Created"
+    | "Bad Request"
+    | "Unauthorized"
+    | "Internal Server Error";
+  errors?: BasicError | ValidationError;
+};
+
+/**
+ * Change Username
+ */
+
+export const changeUsername: Endpoint = {
+  path: "/user/username", 
+  method: "POST", 
+  auth: true
+};
+
+export type ChangeUsernameParameters = {
+  username: string;
+  token?: string;
+};
+
+export type ChangeUsernameResponse = {
+  status:
+    | "Created"
+    | "Bad Request"
+    | "Unauthorized"
+    | "Internal Server Error"; 
+  errors?: BasicError | ValidationError;
+};

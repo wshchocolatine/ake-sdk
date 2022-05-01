@@ -30,6 +30,15 @@ import {
   readMessage,
   ReadMessageParameters,
   ReadMessageResponse,
+  accountInformations,
+  AccountInformationsParameters,
+  AccountInformationsResponse,
+  changeDescription,
+  ChangeDescriptionParameters,
+  ChangeDescriptionResponse,
+  changeUsername,
+  ChangeUsernameParameters,
+  ChangeUsernameResponse,
 } from "./api-endpoints.js";
 // const axios = require('axios').default
 
@@ -322,6 +331,57 @@ export class Client {
         method: readMessage.method,
         auth: readMessage.auth,
         params,
+        token: args.token,
+      });
+    },
+  };
+
+  /**
+   * User endpoints
+   */
+
+  public readonly user = {
+    /**
+     * Informations about your account
+     */
+    accountInformations: (
+      args: AccountInformationsParameters
+    ): Promise<AccountInformationsResponse> => {
+      return this.request({
+        path: accountInformations.path,
+        method: accountInformations.method,
+        auth: accountInformations.auth,
+        params: args.userId ? { userId: args.userId } : undefined,
+        token: args.token,
+      });
+    },
+
+    /**
+     * Change user description
+     */
+    changeDescription: (
+      args: ChangeDescriptionParameters
+    ): Promise<ChangeDescriptionResponse> => {
+      return this.request({
+        path: changeDescription.path,
+        method: changeDescription.method,
+        auth: changeDescription.auth,
+        body: { description: args.description },
+        token: args.token,
+      });
+    },
+
+    /**
+     * Change user username
+     */
+    changeUsername: (
+      args: ChangeUsernameParameters
+    ): Promise<ChangeUsernameResponse> => {
+      return this.request({
+        path: changeUsername.path,
+        method: changeUsername.method,
+        auth: changeUsername.auth,
+        body: { username: args.username },
         token: args.token,
       });
     },

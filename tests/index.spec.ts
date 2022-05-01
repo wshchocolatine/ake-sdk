@@ -125,4 +125,42 @@ test.group("Testing all endpoints", () => {
 
     assert.containsSubset(response, { status: "Created" });
   });
+
+  /**
+   * User endpoints
+   */
+
+  test("/user/account/informations", async ({ assert }) => {
+    const informations = await ake.user.accountInformations({
+      userId: 1,
+      token: token,
+    });
+
+    console.log(informations);
+
+    assert.containsSubset(informations, { status: "Ok" });
+  });
+
+  test("/user/description", async ({ assert }) => {
+    const response = await ake.user.changeDescription({
+      description: "Editing description...",
+      token: token,
+    });
+
+    assert.containsSubset(response, { status: "Created" });
+  });
+
+  test("/user/username", async ({ assert }) => {
+    const response = await ake.user.changeUsername({
+      username: "marinbis",
+      token: token,
+    });
+
+    assert.containsSubset(response, { status: "Created" });
+
+    /*     await ake.user.changeUsername({
+      username: "marin", 
+      token: token
+    }) */
+  });
 });
