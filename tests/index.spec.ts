@@ -102,7 +102,7 @@ test.group("Testing all endpoints", () => {
 
   test("/message/get", async ({ assert }) => {
     const response = await ake.message.get({
-      convId: 1,
+      convId:'',
       offset: 0,
       token: token,
     });
@@ -112,7 +112,7 @@ test.group("Testing all endpoints", () => {
 
   test("/message/read", async ({ assert }) => {
     const messages = await ake.message.get({
-      convId: 1,
+      convId: '',
       offset: 0,
       token: token,
     });

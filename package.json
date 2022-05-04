@@ -2,7 +2,7 @@
   "name": "ake-sdk",
   "version": "1.0.0",
   "description": "A SDK for using the Ake-Api",
-  "main": "./build/index.js",
+  "main": "./build/src/client.js",
   "type": "module",
   "scripts": {
     "test": "node build/bin/test.js",

@@ -4,7 +4,7 @@ type Endpoint = {
   auth: boolean;
 };
 
-type Id = string | number;
+type Id = string;
 
 type BasicError = {
   message: string;
@@ -18,24 +18,21 @@ type ValidationError = {
 
 type ConversationItem = {
   id: Id;
-  last_msg_content: string;
-  last_msg_author: Id;
-  last_msg_read: boolean;
-  created_at: string;
-  updated_at: string;
   participants: Array<{
-    user_id: Id;
-    username: string;
-  }>;
+    user_id: Id, 
+    username: string, 
+    tag: number
+  }>, 
+  last_message: MessageItem
 };
 
 type MessageItem = {
   id: Id;
-  author: Id;
-  conversation_id: Id;
+  author_id: Id;
   content: string;
   read: boolean;
   created_at: string;
+  conversation_id?: Id;
 };
 
 type UserSerializedItem = {
@@ -147,7 +144,7 @@ export type LogoutResponse = {
 
 export const socketToken: Endpoint = {
   method: "GET",
-  path: "/user/token",
+  path: "/auth/sockets/token",
   auth: true,
 };
 
