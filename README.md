@@ -12,8 +12,6 @@ The main goal of this project is to develop the use of Ake by facilitating the h
 
 So do not hesitate to launch your own messaging application built on Ake with this SDK. 
 
-Go check Ake Api [here](https://github.com/wshchocolatine/ake-api)
-
 ## Installation 
 
 ```
