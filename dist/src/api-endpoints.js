@@ -30,7 +30,7 @@ export const logout = {
  */
 export const socketToken = {
     method: "GET",
-    path: "/user/token",
+    path: "/auth/sockets/token",
     auth: true,
 };
 /**
@@ -114,3 +114,4 @@ export const changeUsername = {
     method: "POST",
     auth: true
 };
+//# sourceMappingURL=api-endpoints.js.map

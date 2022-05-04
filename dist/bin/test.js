@@ -32,3 +32,4 @@ configure({
 |
 */
 run();
+//# sourceMappingURL=test.js.map

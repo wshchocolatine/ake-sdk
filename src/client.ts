@@ -56,7 +56,7 @@ export type RequestParameters = {
   body?: Record<string, unknown>;
 };
 
-export class Client {
+export default class Client {
   #authGuard: "session" | "token";
   #url: string;
   #userAgent: string;

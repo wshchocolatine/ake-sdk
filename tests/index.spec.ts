@@ -1,6 +1,6 @@
 import { test } from "@japa/runner";
 import { faker } from "@faker-js/faker";
-import { Client } from "../src/client.js";
+import Client from "../src/client.js";
 
 test.group("Testing all endpoints", () => {
   const ake = new Client({

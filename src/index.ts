@@ -1,3 +1,1 @@
-import { Client } from "./client"
-
-export default Client 
+export { default as  Client } from "./client.js"

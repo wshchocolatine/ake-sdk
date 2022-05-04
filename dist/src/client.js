@@ -1,6 +1,6 @@
 import got from "got";
 import { register, login, logout, socketToken, newConversation, getConversation, searchConversation, sendMessage, getMessage, readMessage, accountInformations, changeDescription, changeUsername, } from "./api-endpoints.js";
-export class Client {
+export default class Client {
     #authGuard;
     #url;
     #userAgent;
@@ -311,3 +311,4 @@ export class Client {
         };
     }
 }
+//# sourceMappingURL=client.js.map

@@ -5,3 +5,4 @@ test.group("Maths.add", () => {
         assert.equal(2 + 2, 4);
     });
 });
+//# sourceMappingURL=maths.spec.js.map

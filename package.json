@@ -2,7 +2,8 @@
   "name": "ake-sdk",
   "version": "1.0.0",
   "description": "A SDK for using the Ake-Api",
-  "main": "./build/src/client.js",
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
   "type": "module",
   "scripts": {
     "test": "node build/bin/test.js",
@@ -12,6 +13,7 @@
     "format": "npx prettier --write .",
     "lint": "npx eslint . --ext .ts"
   },
+  "files": ["dist/package.json", "dist/src/**"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wshchocolatine/ake-sdk.git"

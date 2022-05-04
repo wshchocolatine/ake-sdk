@@ -1,6 +1,6 @@
 import { test } from "@japa/runner";
 import { faker } from "@faker-js/faker";
-import { Client } from "../src/client.js";
+import Client from "../src/client.js";
 test.group("Testing all endpoints", () => {
     const ake = new Client({
         authGuard: "token",
@@ -79,7 +79,7 @@ test.group("Testing all endpoints", () => {
     });
     test("/message/get", async ({ assert }) => {
         const response = await ake.message.get({
-            convId: 1,
+            convId: '',
             offset: 0,
             token: token,
         });
@@ -87,7 +87,7 @@ test.group("Testing all endpoints", () => {
     });
     test("/message/read", async ({ assert }) => {
         const messages = await ake.message.get({
-            convId: 1,
+            convId: '',
             offset: 0,
             token: token,
         });
@@ -128,3 +128,4 @@ test.group("Testing all endpoints", () => {
         }) */
     });
 });
+//# sourceMappingURL=index.spec.js.map
